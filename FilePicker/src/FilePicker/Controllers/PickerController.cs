@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FilePicker.Models;
+
 
 namespace FilePicker.Controllers
 {
@@ -12,9 +11,12 @@ namespace FilePicker.Controllers
     {
         public IPickerRepository FileItems { get; set; }
 
+
         public PickerController(IPickerRepository fileItems)
         {
             FileItems = fileItems;
+
+            
         }
 
 
@@ -40,6 +42,33 @@ namespace FilePicker.Controllers
 
         }
 
+
+
+        //public async Task Post(ICollection<IFormFile> files)
+        //{
+        //    var uploads = Path.Combine(hostingEnv.WebRootPath, "uploads");
+        //    foreach (var file in files)
+        //    {
+        //        if (file.Length > 0)
+        //        {
+        //            var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        //            await file.CopyToAsync(Stream());
+        //        }
+        //    }
+        //}
+        //    }
+        //    //var filePath = fileName + "";
+        //    //FileStream f = new FileStream(filePath, FileMode.Open);
+
+        //    //byte[] buffer = { };
+        //    //int x = await f.ReadAsync(buffer, 0, 0);
+        //    //f.
+
+        //    //await file.CopyToAsync(stream);
+
+        //    //file.Dispose();
+        //}
+
         [HttpGet("{id}", Name = "GetFile")]
         public IActionResult GetById(int id)
         {
@@ -63,6 +92,8 @@ namespace FilePicker.Controllers
             FileItems.Add(item);
             return CreatedAtRoute("GetFile", new { controller = "Picker", id = item.ID }, item);
         }
+
+   
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] FileItem item)
